@@ -1,13 +1,18 @@
 require "health_check/engine"
+require "health_check/config"
 require "health_check/plugins/base"
-require "health_check/plugins/ping"
 
 module HealthCheck
 
   extend self
 
   def all_check(request: nil)
-    plugins = [HealthCheck::Plugins::Ping]
+
+    HealthCheck.configure do |config|
+      config.ping
+    end
+
+    plugins = HealthCheck.config.plugins
 
     results = plugins.map { |plugin| result plugin, request }
 
@@ -15,6 +20,14 @@ module HealthCheck
       results: results.reduce({}, :merge),
       status: results.all? { |result| result.values.first[:status] == "OK" } ? "OK" : "NG"
     }
+  end
+
+  def config
+    @config ||= Config.new
+  end
+
+  def configure(&block)
+    config.instance_eval(&block)
   end
 
   private
