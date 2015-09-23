@@ -23,6 +23,13 @@ RSpec.configure do |config|
 
   config.include JsonSpec::Helpers
 
+  # HealthCheck Initializer
+  config.before(:suite) do
+    HealthCheck.configure do |config|
+      config.ping
+    end
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

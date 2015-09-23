@@ -7,11 +7,6 @@ module HealthCheck
   extend self
 
   def all_check(request: nil)
-
-    HealthCheck.configure do |config|
-      config.ping
-    end
-
     plugins = HealthCheck.config.plugins
 
     results = plugins.map { |plugin| result plugin, request }
