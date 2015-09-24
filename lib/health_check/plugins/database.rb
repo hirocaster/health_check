@@ -4,10 +4,25 @@ module HealthCheck
 
     class Database < Base
 
+      def initialize(request: nil)
+        @check_klasses = []
+
+        if request.params[:database_check_classes]
+          request.params[:database_check_classes].split(",").each do |klass_string|
+            klass = klass_string.constantize
+            @check_klasses << klass
+          end
+        else
+          @check_klasses << ActiveRecord::Base
+        end
+      end
+
       def check!
-        ActiveRecord::Migrator.current_version(ActiveRecord::Base.connection)
+        @check_klasses.each do |check_klass|
+          ActiveRecord::Migrator.current_version check_klass.connection
+        end
       rescue Exception => e
-        raise DatabaseException.new(e.message)
+        raise DatabaseException, e.message
       end
 
     end
