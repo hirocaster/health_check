@@ -27,6 +27,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     HealthCheck.configure do |config|
       config.ping
+      config.database
     end
   end
 

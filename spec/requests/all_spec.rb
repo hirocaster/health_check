@@ -10,6 +10,10 @@ describe "All", :type => :request do
         expect(response.body).to have_json_path "results/ping/status"
         expect(response.body).to have_json_path "results/ping/message"
         expect(response.body).to have_json_path "results/ping/timestamp"
+        expect(response.body).to have_json_path "results/database"
+        expect(response.body).to have_json_path "results/database/status"
+        expect(response.body).to have_json_path "results/database/message"
+        expect(response.body).to have_json_path "results/database/timestamp"
         expect(response.body).to be_json_eql(%("OK")).at_path("status")
       end
     end

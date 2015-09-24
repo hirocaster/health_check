@@ -2,7 +2,7 @@ module HealthCheck
   class Config
     attr_reader :plugins
 
-    PLUGINS = [:ping]
+    PLUGINS = [:ping, :database]
 
     PLUGINS.each do |plugin_name|
       define_method plugin_name do |&_block|
