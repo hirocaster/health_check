@@ -21,18 +21,24 @@ describe "All", :type => :request do
     context "Set database_check_classes parameter" do
       it "returns json" do
         get "/health_check/all?database_check_classes=ActiveRecord::Base"
-        expect(response).to be_success
-        expect(response).to have_http_status 200
-        expect(response.body).to have_json_path "results"
-        expect(response.body).to have_json_path "results/ping"
-        expect(response.body).to have_json_path "results/ping/status"
-        expect(response.body).to have_json_path "results/ping/message"
-        expect(response.body).to have_json_path "results/ping/timestamp"
-        expect(response.body).to have_json_path "results/database"
-        expect(response.body).to have_json_path "results/database/status"
-        expect(response.body).to have_json_path "results/database/message"
-        expect(response.body).to have_json_path "results/database/timestamp"
         expect(response.body).to be_json_eql(%("OK")).at_path("status")
+        expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
+      end
+
+      context "Set user generate model class" do
+        it "returns json" do
+          get "/health_check/all?database_check_classes=User"
+          expect(response.body).to be_json_eql(%("OK")).at_path("status")
+          expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
+        end
+      end
+
+      context "Set multi classes" do
+        it "returns json" do
+          get "/health_check/all?database_check_classes=ActiveRecord::Base,User"
+          expect(response.body).to be_json_eql(%("OK")).at_path("status")
+          expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
+        end
       end
     end
 
