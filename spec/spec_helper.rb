@@ -28,6 +28,7 @@ RSpec.configure do |config|
     HealthCheck.configure do |config|
       config.ping
       config.database
+      config.redis
     end
   end
 
