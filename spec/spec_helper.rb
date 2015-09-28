@@ -1,3 +1,4 @@
+require "fakeredis"
 require "json_spec"
 require "pry"
 
