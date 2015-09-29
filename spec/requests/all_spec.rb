@@ -42,6 +42,14 @@ describe "All", :type => :request do
       end
     end
 
+    context "Set redis_check_urls parameter" do
+      it "returns json" do
+        get "/health_check/all?redis_check_urls=redis://127.0.0.1:6380/"
+        expect(response.body).to be_json_eql(%("OK")).at_path("status")
+        expect(response.body).to be_json_eql(%("OK")).at_path("results/redis/status")
+      end
+    end
+
     context "have error status" do
       before do
         ping = HealthCheck::Plugins::Ping.new
