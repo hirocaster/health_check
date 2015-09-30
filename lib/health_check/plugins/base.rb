@@ -1,14 +1,12 @@
 module HealthCheck
   module Plugins
     class Base
-      attr_reader :request
-
-      def initialize(request: nil)
+      def check!(request: nil)
         @request = request
       end
 
-      def check!
-        raise NotImplementedError
+      def name
+        self.class.name.demodulize.downcase
       end
     end
   end

@@ -28,8 +28,7 @@ module HealthCheck
   private
 
     def result(plugin, request)
-      monitor = plugin.new(request: request)
-      monitor.check!
+      plugin.check!(request: request)
 
       {
         plugin.name.demodulize.downcase => {

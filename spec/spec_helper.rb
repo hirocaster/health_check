@@ -24,13 +24,7 @@ RSpec.configure do |config|
 
   config.include JsonSpec::Helpers
 
-  # HealthCheck Initializer
   config.before(:suite) do
-    HealthCheck.configure do |config|
-      config.ping
-      config.database
-      config.redis
-    end
   end
 
   # rspec-expectations config goes here. You can use an alternate

@@ -5,22 +5,14 @@ module HealthCheck
     class RedisException < StandardError; end
 
     class Redis < Base
-      def check!
-        @check_urls = []
-
-        if request && request.params[:redis_check_urls]
-          @check_urls = request.params[:redis_check_urls].split(",")
-        else
-          @check_urls << "redis://127.0.0.1:6380/"
-        end
-
+      def check!(request: nil)
         value = Time.now.to_s(:db)
 
-        @check_urls.each do |host|
+        check_urls.each do |host|
           @redis = ::Redis.new(:host => host)
-          @redis.set key, value
+          @redis.set key(request), value
 
-          fetched_value = @redis.get key
+          fetched_value = @redis.get key(request)
 
           raise "differende values (now: #{time}, fetched: #{fetched_value})" if fetched_value != value
 
@@ -31,9 +23,17 @@ module HealthCheck
         raise RedisException, e.message
       end
 
+      def check_urls
+        @check_urls ||= ["redis://127.0.0.1:6380/"]
+      end
+
+      def check_urls=(urls)
+        @check_urls = urls
+      end
+
       private
 
-        def key
+        def key(request)
           @key ||= ['health_check', request.try(:remote_ip)].join(':')
         end
     end

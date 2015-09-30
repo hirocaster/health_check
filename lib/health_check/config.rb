@@ -1,7 +1,5 @@
 module HealthCheck
   class Config
-    attr_reader :plugins
-
     PLUGINS = [:ping, :database, :redis]
 
     PLUGINS.each do |plugin_name|
@@ -12,11 +10,22 @@ module HealthCheck
       end
     end
 
+    def plugins
+      @plugins.values
+    end
+
     private
 
       def add_plugin(plugin_class)
-        (@plugins ||= Set.new) << plugin_class
-        plugin_class
+        @plugins ||= Hash.new
+
+        if @plugins.has_key? plugin_class
+          @plugins.fetch plugin_class
+        else
+          plugin = plugin_class.new
+          @plugins[plugin_class] = plugin
+          plugin
+        end
       end
   end
 end

@@ -4,7 +4,7 @@ module HealthCheck
 
     class Ping < Base
 
-      def check!
+      def check!(request: nil)
       end
 
     end

@@ -3,8 +3,7 @@ module HealthCheck
     class DatabaseException < StandardError; end
 
     class Database < Base
-
-      def initialize(request: nil)
+      def check!(request: nil)
         @check_klasses = []
 
         if request.params[:database_check_classes]
@@ -15,16 +14,15 @@ module HealthCheck
         else
           @check_klasses << ActiveRecord::Base
         end
-      end
 
-      def check!
+        super
+
         @check_klasses.each do |check_klass|
           ActiveRecord::Migrator.current_version check_klass.connection
         end
       rescue Exception => e
         raise DatabaseException, e.message
       end
-
     end
   end
 end
