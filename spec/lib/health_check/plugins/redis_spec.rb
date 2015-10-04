@@ -1,5 +1,4 @@
 describe "HealthCheck::Plugins::Redis" do
-
   describe "example" do
     before do
       HealthCheck.configure do |config|
