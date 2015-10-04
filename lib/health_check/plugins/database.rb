@@ -6,7 +6,7 @@ module HealthCheck
       def check!(request: nil)
         @check_klasses = []
 
-        if request.params[:database_check_classes]
+        if request && request.params[:database_check_classes]
           request.params[:database_check_classes].split(",").each do |klass_string|
             klass = klass_string.constantize
             @check_klasses << klass
