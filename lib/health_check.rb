@@ -3,7 +3,6 @@ require "health_check/config"
 require "health_check/plugins/base"
 
 module HealthCheck
-
   extend self
 
   def all_check(request: nil)
@@ -27,26 +26,25 @@ module HealthCheck
 
   private
 
-    def result(plugin, request)
-      plugin.check!(request: request)
+  def result(plugin, request)
+    plugin.check!(request: request)
 
-      {
-        plugin.name.demodulize.downcase => {
-          message: "",
-          status: "OK",
-          timestamp: Time.now.to_s(:db)
-        }
+    {
+      plugin.name.demodulize.downcase => {
+        message: "",
+        status: "OK",
+        timestamp: Time.now.to_s(:db)
       }
+    }
 
-    rescue => exception
+  rescue => exception
 
-      {
-        plugin.name.demodulize.downcase => {
-          message: exception.message,
-          status: "NG",
-          timestamp: Time.now.to_s(:db)
-        }
+    {
+      plugin.name.demodulize.downcase => {
+        message: exception.message,
+        status: "NG",
+        timestamp: Time.now.to_s(:db)
       }
-
-    end
+    }
+  end
 end

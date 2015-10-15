@@ -16,16 +16,16 @@ module HealthCheck
 
     private
 
-      def add_plugin(plugin_class)
-        @plugins ||= Hash.new
+    def add_plugin(plugin_class)
+      @plugins ||= {}
 
-        if @plugins.has_key? plugin_class
-          @plugins.fetch plugin_class
-        else
-          plugin = plugin_class.new
-          @plugins[plugin_class] = plugin
-          plugin
-        end
+      if @plugins.key? plugin_class
+        @plugins.fetch plugin_class
+      else
+        plugin = plugin_class.new
+        @plugins[plugin_class] = plugin
+        plugin
       end
+    end
   end
 end

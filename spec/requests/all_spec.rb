@@ -1,4 +1,4 @@
-describe "All", :type => :request do
+describe "All", type: :request do
   describe "GET /all" do
     before do
       HealthCheck.configure do |config|

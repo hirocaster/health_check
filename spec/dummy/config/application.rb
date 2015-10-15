@@ -1,6 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path("../boot", __FILE__)
 
-require 'rails/all'
+require "rails/all"
 
 Bundler.require(*Rails.groups)
 require "health_check"
@@ -23,4 +23,3 @@ module Dummy
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
-

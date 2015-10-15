@@ -1,16 +1,14 @@
 describe "HealthCheck::Plugins::Database" do
   describe "example" do
     before do
-      HealthCheck.configure do |config|
-        config.database
-      end
+      HealthCheck.configure(&:database)
     end
 
     it "check default database host" do
-      expect {
+      expect do
         database = HealthCheck::Plugins::Database.new
         database.check!
-      }.not_to raise_error
+      end.not_to raise_error
     end
   end
 end

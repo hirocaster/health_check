@@ -1,16 +1,14 @@
 describe "HealthCheck::Plugins::Redis" do
   describe "example" do
     before do
-      HealthCheck.configure do |config|
-        config.redis
-      end
+      HealthCheck.configure(&:redis)
     end
 
     it "check default redis host" do
-      expect {
+      expect do
         redis = HealthCheck::Plugins::Redis.new
         redis.check!
-      }.not_to raise_error
+      end.not_to raise_error
     end
   end
 
@@ -22,20 +20,20 @@ describe "HealthCheck::Plugins::Redis" do
     end
 
     it "raise different values exception" do
-      expect {
+      expect do
         redis = HealthCheck::Plugins::Redis.new
         redis.check!
-      }.to raise_error HealthCheck::Plugins::RedisException
+      end.to raise_error HealthCheck::Plugins::RedisException
     end
   end
 
   context "Set redis server urls" do
     it "check redis host" do
-      expect {
+      expect do
         redis = HealthCheck::Plugins::Redis.new
         redis.check_urls = ["redis://127.0.0.1:6381/"]
         redis.check!
-      }.not_to raise_error
+      end.not_to raise_error
     end
   end
 end
