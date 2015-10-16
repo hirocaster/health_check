@@ -3,7 +3,7 @@ module HealthCheck
     class PingException < StandardError; end
 
     class Ping < Base
-      def check!(request: nil)
+      def check!(*)
       end
     end
   end
