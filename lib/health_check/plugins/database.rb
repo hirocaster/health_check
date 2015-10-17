@@ -20,7 +20,7 @@ module HealthCheck
         @check_klasses.each do |check_klass|
           ActiveRecord::Migrator.current_version check_klass.connection
         end
-      rescue Exception => e
+      rescue StandardError => e
         raise DatabaseException, e.message
       end
     end
