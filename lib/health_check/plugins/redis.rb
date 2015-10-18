@@ -18,7 +18,7 @@ module HealthCheck
 
           @redis.client.disconnect
         end
-      rescue Exception => e
+      rescue StandardError => e
         @redis.client.disconnect if @redis
         raise RedisException, e.message
       end
