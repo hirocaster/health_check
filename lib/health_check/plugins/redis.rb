@@ -10,11 +10,10 @@ module HealthCheck
 
         check_urls.each do |host|
           @redis = ::Redis.new(host: host)
-          @redis.set key(request), value
+          key = key(request)
 
-          fetched_value = @redis.get key(request)
-
-          fail "differende values (now: #{time}, fetched: #{fetched_value})" if fetched_value != value
+          @redis.set key, value
+          featch_and_validate! key, value
 
           @redis.client.disconnect
         end
@@ -33,6 +32,11 @@ module HealthCheck
 
       def key(request)
         @key ||= ["health_check", request.try(:remote_ip)].join(":")
+      end
+
+      def featch_and_validate!(key, value)
+        fetched_value = @redis.get key
+        fail "differende values (now: #{value}, fetched: #{fetched_value})" if fetched_value != value
       end
     end
   end
