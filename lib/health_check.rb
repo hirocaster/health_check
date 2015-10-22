@@ -38,7 +38,10 @@ module HealthCheck
     }
 
   rescue => exception
+    error_result exception, plugin
+  end
 
+  def error_result(exception, plugin)
     {
       plugin.name.demodulize.downcase => {
         message: exception.message,
