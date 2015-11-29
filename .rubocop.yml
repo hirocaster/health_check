@@ -49,8 +49,3 @@ Lint/BlockAlignment:
 
 Metrics/MethodLength:
   Max: 12
-
-FileName:
-  Exclude:
-    - 'lib/activerecord-slave.rb'
-    - 'spec/tasks/activerecord-slave_spec.rb'
