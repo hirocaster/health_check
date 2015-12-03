@@ -21,32 +21,35 @@ describe "All", type: :request do
         expect(response.body).to have_json_path "results/database"
         expect(response.body).to have_json_path "results/database/status"
         expect(response.body).to have_json_path "results/database/message"
+        expect(response.body).to have_json_path "results/database/message/ActiveRecord::Base"
         expect(response.body).to have_json_path "results/database/timestamp"
         expect(response.body).to be_json_eql(%("OK")).at_path("status")
       end
     end
 
-    context "Set database_check_classes parameter" do
+
+    context "Set add user model class" do
+      before do
+        HealthCheck.configure do |config|
+          config.ping
+          config.database.class_names = [ActiveRecord::Base, User]
+          config.redis
+        end
+      end
+
       it "returns json" do
-        get "/health_check/all?database_check_classes=ActiveRecord::Base"
+        get "/health_check/all"
         expect(response.body).to be_json_eql(%("OK")).at_path("status")
         expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
+        expect(response.body).to be_json_eql(%("OK")).at_path("results/database/message/User/")
       end
+    end
 
-      context "Set user generate model class" do
-        it "returns json" do
-          get "/health_check/all?database_check_classes=User"
-          expect(response.body).to be_json_eql(%("OK")).at_path("status")
-          expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
-        end
-      end
-
-      context "Set multi classes" do
-        it "returns json" do
-          get "/health_check/all?database_check_classes=ActiveRecord::Base,User"
-          expect(response.body).to be_json_eql(%("OK")).at_path("status")
-          expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
-        end
+    context "Set multi classes" do
+      it "returns json" do
+        get "/health_check/all"
+        expect(response.body).to be_json_eql(%("OK")).at_path("status")
+        expect(response.body).to be_json_eql(%("OK")).at_path("results/database/status")
       end
     end
 
