@@ -3,7 +3,7 @@ module HealthCheck
     class DatabaseException < StandardError; end
 
     class Database < Base
-      attr_accessor :class_names
+      attr_writer :class_names
 
       def check!(request: nil)
         super
