@@ -27,11 +27,11 @@ module HealthCheck
   private
 
   def result(plugin, request)
-    plugin.check!(request: request)
+    message = plugin.check!(request: request)
 
     {
       plugin.name.demodulize.downcase => {
-        message: "",
+        message: message,
         status: "OK",
         timestamp: Time.now.to_s(:db)
       }

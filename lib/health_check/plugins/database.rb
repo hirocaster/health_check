@@ -3,29 +3,25 @@ module HealthCheck
     class DatabaseException < StandardError; end
 
     class Database < Base
+      attr_accessor :class_names
+
       def check!(request: nil)
         super
 
-        check_klasses.each do |check_klass|
+        message = Hash.new
+
+        class_names.each do |check_klass|
           ActiveRecord::Migrator.current_version check_klass.connection
+          message[check_klass.name] = "OK"
         end
+
+        message
       rescue StandardError => e
         raise DatabaseException, e.message
       end
 
-      private
-
-      def check_klasses(request)
-        result = []
-        if request && request.params[:database_check_classes]
-          request.params[:database_check_classes].split(",").each do |klass_string|
-            klass = klass_string.constantize
-            result << klass
-          end
-        else
-          result << ActiveRecord::Base
-        end
-        result
+      def class_names
+        @class_names ||= [ActiveRecord::Base]
       end
     end
   end

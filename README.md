@@ -23,7 +23,17 @@ Or install it yourself as:
 ```ruby
 HealthCheck.configure do |config|
   config.ping
-  config.database
+  config.database # default ActiveRecord::Base
+  config.redis
+end
+```
+
+### Multi databases
+
+```ruby
+HealthCheck.configure do |config|
+  config.ping
+  config.database.class_names = [ActiveRecord::Base, User, Item, Post] # Model classes
   config.redis
 end
 ```
