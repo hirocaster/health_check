@@ -8,6 +8,8 @@ module HealthCheck
       def check!(request: nil)
         value = Time.now.to_s(:db)
 
+        message = Hash.new
+
         check_urls.each do |host|
           @redis = ::Redis.new(host: host)
           key = key(request)
@@ -16,7 +18,11 @@ module HealthCheck
           featch_and_validate! key, value
 
           @redis.client.disconnect
+
+          message[host.to_sym] = "OK"
         end
+
+        message
       rescue StandardError => e
         @redis.client.disconnect if @redis
         raise RedisException, e.message
