@@ -23,6 +23,10 @@ describe "All", type: :request do
         expect(response.body).to have_json_path "results/database/message"
         expect(response.body).to have_json_path "results/database/message/ActiveRecord::Base"
         expect(response.body).to have_json_path "results/database/timestamp"
+        expect(response.body).to have_json_path "results/redis"
+        expect(response.body).to have_json_path "results/redis/status"
+        expect(response.body).to have_json_path "results/redis/message"
+        expect(response.body).to have_json_path "results/redis/timestamp"
         expect(response.body).to be_json_eql(%("OK")).at_path("status")
       end
     end
