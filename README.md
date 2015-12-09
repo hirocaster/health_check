@@ -24,7 +24,7 @@ Or install it yourself as:
 HealthCheck.configure do |config|
   config.ping
   config.database # default ActiveRecord::Base
-  config.redis
+  config.redis    # default redis://127.0.0.1:6380/
 end
 ```
 
