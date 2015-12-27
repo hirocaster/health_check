@@ -6,7 +6,7 @@ describe "HealthCheck::Plugins::Redis" do
 
     it "check default redis host" do
       redis = HealthCheck::Plugins::Redis.new
-      expect(redis.check!).to eq "redis://127.0.0.1:6380/": "OK"
+      expect(redis.check!).to eq({:"redis://127.0.0.1:6380/" => "OK"})
     end
   end
 
