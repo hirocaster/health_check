@@ -157,9 +157,10 @@ DEPENDENCIES
   health_check!
   json_spec
   pry
+  rake
   rspec
   rspec-rails
   rubocop
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
