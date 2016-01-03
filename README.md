@@ -1,6 +1,6 @@
 # HealthCheck
 
-[![Build Status](https://travis-ci.org/hirocaster/health_check.svg?branch=master)](https://travis-ci.org/hirocaster/health_check)
+[![Build Status](https://travis-ci.org/hirocaster/health_check.svg?branch=master)](https://travis-ci.org/hirocaster/health_check) [![Code Climate](https://codeclimate.com/github/hirocaster/health_check/badges/gpa.svg)](https://codeclimate.com/github/hirocaster/health_check)
 
 Add monitor endpoint to rails app
 
