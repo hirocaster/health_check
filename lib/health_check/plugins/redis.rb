@@ -6,7 +6,7 @@ module HealthCheck
 
     class Redis < Base
       def check!(request: nil)
-        value = Time.now.to_s(:db)
+        value = Time.current.to_s(:db)
 
         message = Hash.new
 

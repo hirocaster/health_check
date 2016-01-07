@@ -33,7 +33,7 @@ module HealthCheck
       plugin.name.demodulize.downcase => {
         message: message,
         status: "OK",
-        timestamp: Time.now.to_s(:db)
+        timestamp: Time.current.to_s(:db)
       }
     }
 
@@ -46,7 +46,7 @@ module HealthCheck
       plugin.name.demodulize.downcase => {
         message: exception.message,
         status: "NG",
-        timestamp: Time.now.to_s(:db)
+        timestamp: Time.current.to_s(:db)
       }
     }
   end
