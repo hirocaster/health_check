@@ -8,7 +8,7 @@ module HealthCheck
       def check!(request: nil)
         super
 
-        message = Hash.new
+        message = {}
 
         class_names.each do |check_klass|
           ActiveRecord::Migrator.current_version check_klass.connection
