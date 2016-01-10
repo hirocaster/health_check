@@ -8,7 +8,7 @@ module HealthCheck
       def check!(request: nil)
         value = Time.current.to_s(:db)
 
-        message = Hash.new
+        message = {}
 
         check_urls.each do |host|
           @redis = ::Redis.new(host: host)
