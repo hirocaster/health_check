@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = HealthCheck::VERSION
   s.authors     = ["hirocaster"]
   s.email       = ["hohtsuka@gmail.com"]
-  s.homepage    = "TODO"
+  s.homepage    = "https://github.com/hirocaster/health_check"
   s.summary     = "TODO: Summary of HealthCheck."
   s.description = "TODO: Description of HealthCheck."
   s.license     = "MIT"
