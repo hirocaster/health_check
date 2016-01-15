@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = HealthCheck::VERSION
   s.authors     = ["hirocaster"]
   s.email       = ["hohtsuka@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of HealthCheck."
-  s.description = "TODO: Description of HealthCheck."
+  s.homepage    = "https://github.com/hirocaster/health_check"
+  s.summary     = "Add health check endpoint for Rails from monitoring system."
+  s.description = "Add health check endpoint for Rails from monitoring system."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
